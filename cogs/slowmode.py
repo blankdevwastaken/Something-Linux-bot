@@ -32,7 +32,7 @@ class AutoMod(commands.Cog):
         for channel_id in self.data:
             self.data[channel_id]["messages"] = 0
             channel = self.bot.get_channel(int(channel_id))
-            if channel:
+            if channel and channel.slowmode_delay > 0:
                 await channel.edit(slowmode_delay=0)
         save_data(self.data)
         await utils.log(self, "Reset Slowmode for all channels.")
